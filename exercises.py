@@ -334,9 +334,12 @@ there are n soldiers numbered from 1 to n
 and each k-th soldier will be eliminated.
 The count starts from the first soldier.
 What is the number of the last survivor?
+
+http://mathworld.wolfram.com/JosephusProblem.html
 """
 
 # solution - user: nneonneo, from: stackoverflow, date: Sep 16 2012
+# http://stackoverflow.com/questions/12444979/josephus-problm-using-list-in-python?answertab=active#tab-top
 # kill every kth man of n men
 def josephus(n, k):
     men = range(1, n + 1)
