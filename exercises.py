@@ -318,9 +318,10 @@ Answer: improves readability of function
 
 #27
 
-# Josephus Problem, interesting problem that I come across, I attempted
-# solution briefly but was messy; found excellent solution, decided to keep
-# here for future reference
+# Josephus Problem
+# an interesting problem that I came across,
+# I attempted solution briefly but was messy;
+# found excellent solution, decided to keep here for future reference
 
 """
 Flavius Josephus was a roman historian of Jewish origin.
@@ -343,7 +344,6 @@ http://mathworld.wolfram.com/JosephusProblem.html
 # solution - user: nneonneo, from: stackoverflow, date: Sep 16 2012
 # http://stackoverflow.com/questions/12444979/josephus-problm-using-list-in-python?answertab=active#tab-top
 
-
 # kill every kth man of n men
 def josephus(n, k):
     men = range(1, n + 1)
@@ -353,4 +353,3 @@ def josephus(n, k):
         print 'kill', men.pop(idx) # kill prisoner at idx
         idx = (idx + k) % len(men)
     print 'survivor', men[0]
-    
