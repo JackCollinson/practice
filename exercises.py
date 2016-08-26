@@ -224,24 +224,6 @@ def char_freq(str):
 # print(str(char_freq("abbabcbdbabdbdbabababcbcbab")))
 
 #22
-def caesar13(str):
-    key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u',
-       'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c',
-       'q':'d', 'r':'e', 's':'f', 't':'g', 'u':'h', 'v':'i', 'w':'j', 'x':'k',
-       'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q', 'E':'R', 'F':'S',
-       'G':'T', 'H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A',
-       'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F', 'T':'G', 'U':'H', 'V':'I',
-       'W':'J', 'X':'K', 'Y':'L', 'Z':'M'}
-
-    result = ""
-    for i in str:
-        if i.isalpha():
-            result += key.get(i)
-        else:
-            result += i
-
-    return result
-
 # shifts by N, rather than 13
 def caesarN(str, n):
     result = ""
@@ -262,13 +244,17 @@ def caesarC(char, n):
     else:
         return char
 
+def caesar13(str):
+    return caesarN(str, 13)
+
+#print(caesar13("Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"))
+
 # prints string shifted in all possible variations of caesar cipher
 def printAllCaesar(str):
     print(str)
     for i in range(1,26):
         print("%d: %s") % (i, caesarN(str, i))
 
-# print(caesar13(" Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"))
 #printAllCaesar('haahjrhavujl!')
 
 #23
