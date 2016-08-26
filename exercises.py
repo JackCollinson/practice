@@ -318,7 +318,7 @@ Answer: improves readability of function
 
 #27
 
-# Jophesus
+# Josephus
 
 """
 Flavius Josephus was a roman historian of Jewish origin.
@@ -336,32 +336,14 @@ The count starts from the first soldier.
 What is the number of the last survivor?
 """
 
-"""
-men = []
-n = 40
-for i in range(1,n+1):
-    men.append((i, "live"))
+# solution - user: nneonneo, from: stackoverflow, date: Sep 16 2012
+def josephus(n, m):
+    ls = range(1, n + 1)
+    m -= 1 # pop automatically skips the dead guy
+    idx = m
+    while len(ls) > 1:
+        print ls.pop(idx) # kill prisoner at idx
+        idx = (idx + m) % len(ls)
+    print 'survivor: ', ls[0]
 
-for i in men:
-    print i
-
-def Jophesus(men, killcount, n, k):
-    if killcount < len(men) - 1:
-        if n - 1 + k - 1 > len(men):
-            print "killcount", killcount
-            x = k - (n % k) - 2
-            return Jophesus(men, killcount, x, k)
-        if men[n - 1 + k][1] == "live":
-            print("%dth man killed") % (n + k - 1)
-            men[n - 1 + k] = (n + k - 1, "dead")
-            return Jophesus(men, killcount+1, n + k, k)
-        else:
-            return Jophesus(men, killcount, n + 1, k)
-    else:
-        return men
-
-men2 = Jophesus(men, 0, 1, 3)
-for i in men2:
-    print i
-
-"""
+#josephus(30,10)
