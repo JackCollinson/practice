@@ -5,7 +5,6 @@ exercises by: Torbjörn Lager
 solutions by: Jack Collinson
 """
 
-
 #1
 def max(n, m):
     return n if n > m else m
@@ -27,10 +26,7 @@ def length(x):
 #4
 def isVowel(x):
     if len(x) > 1 or not x.isalpha(): return "error: enter a single letter"
-    if x.lower() in ['a','e','i','o','u']:
-        return True
-    else:
-        return False
+    return x.lower() in ['a','e','i','o','u']
 
 #5
 def translate(str):
