@@ -337,13 +337,14 @@ What is the number of the last survivor?
 """
 
 # solution - user: nneonneo, from: stackoverflow, date: Sep 16 2012
-def josephus(n, m):
-    ls = range(1, n + 1)
-    m -= 1 # pop automatically skips the dead guy
-    idx = m
-    while len(ls) > 1:
-        print ls.pop(idx) # kill prisoner at idx
-        idx = (idx + m) % len(ls)
-    print 'survivor: ', ls[0]
+# kill every kth man of n men
+def josephus(n, k):
+    men = range(1, n + 1)
+    k -= 1 # pop automatically skips the dead guy
+    idx = k
+    while len(men) > 1:
+        print 'kill', men.pop(idx) # kill prisoner at idx
+        idx = (idx + k) % len(men)
+    print 'survivor', men[0]
 
-#josephus(30,10)
+josephus(40000,3)
