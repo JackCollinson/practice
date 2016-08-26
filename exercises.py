@@ -292,16 +292,17 @@ def correct(str):
 
 #24
 def make_3sg_form(word):
-    result = ""
+
     if word.endswith('y') and not isVowel(word[-2]):
-        result = word[:len(word)-1] + 'ies'
+        return word[:len(word)-1] + 'ies'
+
     elif ( word.endswith('o') or word.endswith('ch') or
         word.endswith('s') or word.endswith('sh') or
         word.endswith('x') or word.endswith('z') ):
-        result = word + 'es'
-    else:
-        result = word + 's'
-    return result
+        return word + 'es'
+
+    return word + 's'
+
 
 #25
 
