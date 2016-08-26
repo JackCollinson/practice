@@ -45,12 +45,19 @@ def sum(x):
         result += i
     return result
 
+def __sum(x):
+    return 0 if len(x) == 0 else x[0] + __sum(x[1:])
+
 def multiply(x):
     if len(x) < 1: return 0
     result = x[0]
     for i in range(1,len(x)):
         result *= x[i]
     return result
+
+def __multiply(x):
+    if len(x) < 1: return 0
+    return x[0] if len(x) == 1 else x[0] * __multiply(x[1:])
 
 #7
 def reverse(str):
