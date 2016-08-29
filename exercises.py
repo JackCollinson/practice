@@ -289,12 +289,22 @@ def make_3sg_form(word):
 
     return word + 's'
 
-
 #25
+def make_ing_form(word):
+    exceptions = ['be','see','flee','knee']
+    if word.endswith('ie'):
+        return word[:-2] + 'ying'
+    if word.endswith('e') and not word in exceptions:
+        return word[:-1] + 'ing'
+    if not isVowel(word[-3]) and isVowel(word[-2]) and not isVowel(word[-1]):
+        return word + word[-1] + 'ing'
+    return word + 'ing'
 
 #26
 def max_in_list(list):
     return reduce(lambda x, y: max(x,y), list)
+
+#27
 
 """
 Exercise asks: why write function such as this and not call reduce function
