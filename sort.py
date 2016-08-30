@@ -104,24 +104,25 @@ def quick_sort(my_list):
 def heap_sort(my_list):
     if len(my_list) < 2: return my_list
     length = len(my_list)
+
     my_list = heapify(my_list)
-    print "heapified", my_list
-    while length > 2:
-        print "length", length
-        my_list[0], my_list[length-1] = my_list[length-1], my_list[0]
-        length = length - 1
+
+    my_list[0], my_list[length-1] = my_list[length-1], my_list[0]
+    length -= 1
+    while length > 1:
+
+
         parent = 0
-        left = 1
+        left = parent + 1
         if length > 2:
-            right = 2
+            right = parent + 2
         else:
             right = None
-        print "parent", my_list[parent]
-        print "left", my_list[left]
-        if right != None:
-            print "right", my_list[right]
-        print my_list
+
         my_list = sift_down(my_list[:length], parent, left, right) + my_list[length:]
+        my_list[0], my_list[length-1] = my_list[length-1], my_list[0]
+        length = length - 1
+
     return my_list
 
 def heapify(my_list):
@@ -137,60 +138,45 @@ def heapify(my_list):
         right_child_index = None
 
     while parent_index > -1:
-        """
-        print "parent", my_list[parent_index]
-        print "left", my_list[left_child_index]
-        if right_child_index != None:
-            print "right", my_list[right_child_index]
-        print my_list
-        """
         my_list = sift_down(my_list, parent_index, left_child_index, right_child_index)
         parent_index -= 1
         left_child_index -= 2
-        right_child_index = left_child_index +1
+        right_child_index = left_child_index + 1
 
 
     return my_list
 
 def sift_down(my_list, parent, left, right):
-    if right != None:
-        if my_list[parent] > my_list[left] and my_list[parent] > my_list[right]:
-            return my_list
-        elif my_list[left] > my_list[right]:
-            my_list[parent], my_list[left] = my_list[left], my_list[parent]
-            parent = left
-            left = ((parent + 1) * 2) - 1
-            right = ((parent + 1) * 2)
-            if right > len(my_list) - 1:
-                right = None
-            if left < len(my_list) and right < len(my_list):
-                sift_down(my_list, parent, left, right)
-            return my_list
-        else:
-            my_list[parent], my_list[right] = my_list[right], my_list[parent]
-            parent = right
-            left = ((parent + 1) * 2) - 1
-            right = ((parent + 1) * 2)
-            if right > len(my_list) - 1:
-                right = None
-            if left < len(my_list) and right < len(my_list):
-                sift_down(my_list, parent, left, right)
-            return my_list
-    else:
-        if my_list[parent] > my_list[left]:
-            return my_list
-        else:
-            my_list[parent], my_list[left] = my_list[left], my_list[parent]
-            return my_list
+    if (my_list[left] > my_list[parent] and
+            (right == None or my_list[left] > my_list[right])):
 
+        my_list[parent], my_list[left] = my_list[left], my_list[parent]
+        parent = left
+        left = ((parent + 1) * 2) - 1
+        right = left + 1
+        if right > len(my_list) - 1:
+            right = None
+        if left < len(my_list) and right < len(my_list):
+            sift_down(my_list, parent, left, right)
+
+    elif right != None and my_list[right] > my_list[parent]:
+        my_list[parent], my_list[right] = my_list[right], my_list[parent]
+        parent = right
+        left = ((parent + 1) * 2) - 1
+        right = ((parent + 1) * 2)
+        if right > len(my_list) - 1:
+            right = None
+        if left < len(my_list) and right < len(my_list):
+            sift_down(my_list, parent, left, right)
+    return my_list
 
 
 # Testing #
 
 my_nums = [1,99,7,64,-21,400,0,169,17,1,100,999]
 
-my_randoms = random.sample(range(99), 8)
-print heap_sort(my_nums)
+my_randoms = random.sample(range(999999), 10000)
+print heap_sort([9,8,7,13,123,421,12,0,-12,231,112])
 type_sort = input("Which type of sort? "
                     "1 = bubble, "
                     "2 = insertion, "
