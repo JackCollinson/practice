@@ -5,7 +5,7 @@ import time
 def bubble_sort(my_list):
     for i in range(len(my_list),-1,-1):
         for j in range(i-1):
-            if (my_list[j]) > (my_list[j+1]):
+            if my_list[j] > my_list[j+1]:
                 my_list[j], my_list[j+1] = my_list[j+1], my_list[j]
     return my_list
 
@@ -104,7 +104,7 @@ def quick_sort(my_list):
 def heap_sort(my_list):
     if len(my_list) < 2: return my_list
     length = len(my_list)
-    my_list = heapify(my_list, 0)
+    my_list = heapify(my_list)
     print "heapified", my_list
     while length > 2:
         print "length", length
@@ -124,18 +124,17 @@ def heap_sort(my_list):
         my_list = sift_down(my_list[:length], parent, left, right) + my_list[length:]
     return my_list
 
-def heapify(my_list, count):
+def heapify(my_list):
     middle = len(my_list)/2
 
-    parent_index = middle - 1 - count
-    if parent_index < 0: return my_list
+    parent_index = middle - 1
 
-    left_child_index = ((parent_index + 1) * 2) - 1
+    left_child_index = (middle * 2) - 1
 
-    if count == 0 and len(my_list) % 2 == 0:
-        right_child_index = None
+    if left_child_index + 1 < len(my_list):
+        right_child_index = left_child_index + 1
     else:
-        right_child_index = ((parent_index + 1) * 2)
+        right_child_index = None
 
     while parent_index > -1:
         """
@@ -198,7 +197,7 @@ type_sort = input("Which type of sort? "
                     "3 = merge, "
                     "4 = quick, "
                     "5 = heap, "
-                    "default = built-in python\n")
+                    "default = python built-in\n")
 
 start_time = time.time()
 if type_sort == 1:
