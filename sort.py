@@ -3,25 +3,19 @@ import time
 
 # Bubble Sort #
 def bubble_sort(my_list):
-    res = list(my_list)
-    for i in range(len(res),-1,-1):
+    for i in range(len(my_list),-1,-1):
         for j in range(i-1):
-            if (res[j]) > (res[j+1]):
-                temp = res[j]
-                res[j] = res[j+1]
-                res[j+1] = temp
-    return res
+            if (my_list[j]) > (my_list[j+1]):
+                my_list[j], my_list[j+1] = my_list[j+1], my_list[j]
+    return my_list
 
 # less optimised bubble sort which searches through the entire list each iteration
 def __bubble_sort(my_list):
-    res = list(my_list)
-    for i in range(len(res)):
-        for j in range(len(res)-1):
-            if (res[j]) > (res[j+1]):
-                temp = res[j]
-                res[j] = res[j+1]
-                res[j+1] = temp
-    return res
+    for i in range(len(my_list)):
+        for j in range(len(my_list)-1):
+            if (my_list[j]) > (my_list[j+1]):
+                my_list[j], my_list[j+1] = my_list[j+1], my_list[j]
+    return my_list
 
 # ---------------------------------
 
