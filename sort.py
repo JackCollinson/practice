@@ -1,4 +1,5 @@
 import random
+import time
 
 def bubble_sort(my_list):
     res = list(my_list)
@@ -28,8 +29,7 @@ def insertion_sort(my_list):
         index = 0
         while index < sorted and my_list[i] > my_list[index]:
             index += 1
-        item = my_list[i]
-        my_list.pop(i)
+        item = my_list.pop(i)
         my_list.insert(index, item)
         sorted += 1
     return my_list
@@ -40,43 +40,57 @@ def merge_sort(my_list):
     middle = len(my_list)/2
     left = my_list[:middle]
     right = my_list[middle:]
-    return _merge(merge_sort(left), merge_sort(right))
+    return merge(merge_sort(left), merge_sort(right))
 
-def _merge(L, R):
-    n1 = len(L)
-    n2 = len(R)
-    res = [0] * (n1 + n2)
-    # Merge the temp arrays back into arr[l..r]
-    i = 0     # Initial index of first subarray
-    j = 0     # Initial index of second subarray
-    k = 0     # Initial index of merged subarray
+def merge(left, right):
+    left_len = len(left)
+    right_len = len(right)
+    merge_len = left_len + right_len
+    merge = [0] * merge_len
 
+    left_index = 0
+    right_index = 0
+    merge_index = 0
 
-    while i < n1 and j < n2 :
-        if L[i] <= R[j]:
-            res[k] = L[i]
-            i += 1
-        else:
-            res[k] = R[j]
-            j += 1
-        k += 1
+    # merge
+    while left_index < left_len and right_index < right_len:
+        if left[left_index] <= right[right_index]:
+            merge[merge_index] = left[left_index]
+            left_index += 1
+        elif right_index < right_len:
+            merge[merge_index] = right[right_index]
+            right_index += 1
+        merge_index += 1
 
-    # Copy the remaining elements of L[], if there
-    # are any
-    while i < n1:
-        res[k] = L[i]
-        i += 1
-        k += 1
+    # add any leftover values in left
+    while left_index < left_len:
+        merge[merge_index] = left[left_index]
+        left_index += 1
+        merge_index += 1
 
-    # Copy the remaining elements of R[], if there
-    # are any
-    while j < n2:
-        res[k] = R[j]
-        j += 1
-        k += 1
+    # add any leftover values in right
+    while right_index < right_len:
+        merge[merge_index] = right[right_index]
+        right_index += 1
+        merge_index += 1
 
-    return res
+    return merge
 
-
+start_time = time.time()
 my_randoms = random.sample(range(999999),10000)
-print insertion_sort(my_randoms)
+type_sort = input("Which type of sort? 1 = bubble, 2 = insertion, 3 = merge\n")
+if type_sort == 1:
+    type_sort = "bubble sort"
+    sort_my_randoms = bubble_sort(my_randoms)
+elif type_sort == 2:
+    type_sort = "insertion sort"
+    sort_my_randoms = insertion_sort(my_randoms)
+elif type_sort == 3:
+    type_sort = "merge sort"
+    sort_my_randoms = merge_sort(my_randoms)
+else:
+    type_sort = "bubble sort"
+    sort_my_randoms = bubble_sort(my_randoms)
+
+function_time = time.time() - start_time
+print sort_my_randoms, "\ntype: %s, time: %s seconds" % (type_sort, function_time)
