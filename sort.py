@@ -151,6 +151,7 @@ def heapify(my_list):
     return my_list
 
 def sift_down(my_list, parent, left, right):
+    
     if (my_list[left] > my_list[parent] and
             (right == None or my_list[left] > my_list[right])):
 
@@ -158,20 +159,20 @@ def sift_down(my_list, parent, left, right):
         parent = left
         left = ((parent + 1) * 2) - 1
         right = left + 1
-        if right > len(my_list) - 1:
-            right = None
+
         if left < len(my_list) and right < len(my_list):
             sift_down(my_list, parent, left, right)
 
     elif right != None and my_list[right] > my_list[parent]:
+
         my_list[parent], my_list[right] = my_list[right], my_list[parent]
         parent = right
         left = ((parent + 1) * 2) - 1
-        right = ((parent + 1) * 2)
-        if right > len(my_list) - 1:
-            right = None
+        right = left + 1
+
         if left < len(my_list) and right < len(my_list):
             sift_down(my_list, parent, left, right)
+
     return my_list
 
 # ---------------------------------
