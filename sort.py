@@ -1,6 +1,7 @@
 import random
 import time
 
+#1. Bubble Sort, least efficient
 def bubble_sort(my_list):
     res = list(my_list)
     for i in range(len(res),-1,-1):
@@ -22,6 +23,9 @@ def __bubble_sort(my_list):
                 res[j+1] = temp
     return res
 
+# ---------------------------------
+
+#2. Insertion Sort
 def insertion_sort(my_list):
     if len(my_list) < 2: return my_list
     sorted = 1
@@ -34,6 +38,9 @@ def insertion_sort(my_list):
         sorted += 1
     return my_list
 
+# ---------------------------------
+
+#3. Merge Sort
 def merge_sort(my_list):
     if (len(my_list) < 2):
         return my_list
@@ -75,6 +82,8 @@ def merge(left, right):
         merge_index += 1
 
     return merge
+
+# ---------------------------------
 
 start_time = time.time()
 my_randoms = random.sample(range(999999),10000)
