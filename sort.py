@@ -124,8 +124,8 @@ elif type_sort == 4:
     type_sort = "quick sort"
     sort_my_randoms = quick_sort(my_randoms)
 else:
-    type_sort = "bubble sort"
-    sort_my_randoms = bubble_sort(my_randoms)
+    type_sort = "python sort"
+    sort_my_randoms = sorted(my_randoms)
 
 function_time = time.time() - start_time
 print sort_my_randoms, "\ntype: %s, time: %s seconds" % (type_sort, function_time)
