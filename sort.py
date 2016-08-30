@@ -83,13 +83,33 @@ def merge(left, right):
 
     return merge
 
+# Quick Sort #
+
+def quick_sort(my_list):
+    if len(my_list) < 2: return my_list
+    pivot = len(my_list) - 1
+    index = 0
+    while index < pivot:
+        if my_list[index] > my_list[pivot]:
+            my_list[index], my_list[pivot-1] = my_list[pivot-1], my_list[index]
+            my_list[pivot-1], my_list[pivot] = my_list[pivot], my_list[pivot-1]
+            pivot -= 1
+        else:
+            index += 1
+    in_place = [my_list[pivot]]
+    left = my_list[:pivot]
+    right = my_list[pivot+1:]
+    return quick_sort(left) + in_place + quick_sort(right)
+
+
 # ---------------------------------
 
 # Testing #
 
 start_time = time.time()
+my_nums = [1,99,7,64,-121,400,0,169,17,1,100,-999]
 my_randoms = random.sample(range(999999),10000)
-type_sort = input("Which type of sort? 1 = bubble, 2 = insertion, 3 = merge\n")
+type_sort = input("Which type of sort? 1 = bubble, 2 = insertion, 3 = merge, 4 = quick\n")
 if type_sort == 1:
     type_sort = "bubble sort"
     sort_my_randoms = bubble_sort(my_randoms)
@@ -99,6 +119,9 @@ elif type_sort == 2:
 elif type_sort == 3:
     type_sort = "merge sort"
     sort_my_randoms = merge_sort(my_randoms)
+elif type_sort == 4:
+    type_sort = "quick sort"
+    sort_my_randoms = quick_sort(my_randoms)
 else:
     type_sort = "bubble sort"
     sort_my_randoms = bubble_sort(my_randoms)
