@@ -107,10 +107,10 @@ def quick_sort(my_list):
 
 # Testing #
 
-start_time = time.time()
 my_nums = [1,99,7,64,-121,400,0,169,17,1,100,-999]
-my_randoms = random.sample(range(999999),10000)
+my_randoms = random.sample(range(999999), 10000)
 type_sort = input("Which type of sort? 1 = bubble, 2 = insertion, 3 = merge, 4 = quick\n")
+start_time = time.time()
 if type_sort == 1:
     type_sort = "bubble sort"
     sort_my_randoms = bubble_sort(my_randoms)
