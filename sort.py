@@ -102,26 +102,30 @@ def quick_sort(my_list):
 
 # Heap Sort #
 def heap_sort(my_list):
-    if len(my_list) < 2: return my_list
-    length = len(my_list)
+    if len(my_list) < 2:
+        return my_list
 
+    unsorted = len(my_list)
+
+    # turn list into heap with heapify()
     my_list = heapify(my_list)
 
-    my_list[0], my_list[length-1] = my_list[length-1], my_list[0]
-    length -= 1
-    while length > 1:
+    # swap first and last elements of list
+    my_list[0], my_list[unsorted-1] = my_list[unsorted-1], my_list[0]
+    unsorted -= 1
+    while unsorted > 1:
 
 
         parent = 0
         left = parent + 1
-        if length > 2:
+        if unsorted > 2:
             right = parent + 2
         else:
             right = None
 
-        my_list = sift_down(my_list[:length], parent, left, right) + my_list[length:]
-        my_list[0], my_list[length-1] = my_list[length-1], my_list[0]
-        length = length - 1
+        my_list = sift_down(my_list[:unsorted], parent, left, right) + my_list[unsorted:]
+        my_list[0], my_list[unsorted-1] = my_list[unsorted-1], my_list[0]
+        unsorted -=  1
 
     return my_list
 
@@ -170,13 +174,12 @@ def sift_down(my_list, parent, left, right):
             sift_down(my_list, parent, left, right)
     return my_list
 
+# ---------------------------------
 
 # Testing #
-
 my_nums = [1,99,7,64,-21,400,0,169,17,1,100,999]
-
 my_randoms = random.sample(range(999999), 10000)
-print heap_sort([9,8,7,13,123,421,12,0,-12,231,112])
+
 type_sort = input("Which type of sort? "
                     "1 = bubble, "
                     "2 = insertion, "
@@ -186,6 +189,7 @@ type_sort = input("Which type of sort? "
                     "default = python built-in\n")
 
 start_time = time.time()
+
 if type_sort == 1:
     type_sort = "bubble sort"
     sort_my_randoms = bubble_sort(my_randoms)
