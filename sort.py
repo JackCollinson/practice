@@ -83,8 +83,9 @@ def merge(left, right):
 
     return merge
 
-# Quick Sort #
+# ---------------------------------
 
+# Quick Sort #
 def quick_sort(my_list):
     if len(my_list) < 2: return my_list
     pivot = len(my_list) - 1
