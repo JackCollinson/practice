@@ -1,20 +1,14 @@
 import random
 import time
+import math
+import sys
 
 # Bubble Sort #
 def bubble_sort(my_list):
-    for i in range(len(my_list),-1,-1):
-        for j in range(i-1):
-            if my_list[j] > my_list[j+1]:
-                my_list[j], my_list[j+1] = my_list[j+1], my_list[j]
-    return my_list
-
-# less optimised bubble sort which searches through the entire list each iteration
-def __bubble_sort(my_list):
     for i in range(len(my_list)):
-        for j in range(len(my_list)-1):
-            if (my_list[j]) > (my_list[j+1]):
-                my_list[j], my_list[j+1] = my_list[j+1], my_list[j]
+        for j in range(len(my_list) - 1, i, -1):
+            if my_list[j] < my_list[j-1]:
+                my_list[j], my_list[j-1] = my_list[j-1], my_list[j]
     return my_list
 
 # ---------------------------------
@@ -35,68 +29,50 @@ def insertion_sort(my_list):
 # ---------------------------------
 
 # Merge Sort #
-def merge_sort(my_list):
-    if (len(my_list) < 2):
-        return my_list
-    middle = len(my_list)/2
-    left = my_list[:middle]
-    right = my_list[middle:]
-    return merge(merge_sort(left), merge_sort(right))
+def merge(my_list, p, q, r):
+    L = my_list[p:q+1]
+    R = my_list[q+1:r+1]
+    L.append(sys.maxint)
+    R.append(sys.maxint)
 
-def merge(left, right):
-    left_len = len(left)
-    right_len = len(right)
-    merge_len = left_len + right_len
-    merge = [0] * merge_len
+    i = 0
+    j = 0
+    for k in range(p, r + 1):
+        if L[i] <= R[j]:
+            my_list[k] = L[i]
+            i += 1
+        else:
+            my_list[k] = R[j]
+            j += 1
+    return my_list
 
-    left_index = 0
-    right_index = 0
-    merge_index = 0
-
-    # merge
-    while left_index < left_len and right_index < right_len:
-        if left[left_index] <= right[right_index]:
-            merge[merge_index] = left[left_index]
-            left_index += 1
-        elif right_index < right_len:
-            merge[merge_index] = right[right_index]
-            right_index += 1
-        merge_index += 1
-
-    # add any leftover values in left
-    while left_index < left_len:
-        merge[merge_index] = left[left_index]
-        left_index += 1
-        merge_index += 1
-
-    # add any leftover values in right
-    while right_index < right_len:
-        merge[merge_index] = right[right_index]
-        right_index += 1
-        merge_index += 1
-
-    return merge
+def merge_sort(my_list, p, r):
+    if p < r:
+        q = (p + r)/2
+        merge_sort(my_list, p, q)
+        merge_sort(my_list, q + 1, r)
+        merge(my_list, p, q, r)
+    return my_list
 
 # ---------------------------------
 
 # Quick Sort #
-def quick_sort(my_list):
-    if len(my_list) < 2: return my_list
-    # randomly select pivot
-    pivot = random.randint(0,len(my_list)-1)
-    index = 0
-    while index < pivot:
-        if my_list[index] > my_list[pivot]:
-            my_list[index], my_list[pivot-1] = my_list[pivot-1], my_list[index]
-            my_list[pivot-1], my_list[pivot] = my_list[pivot], my_list[pivot-1]
-            pivot -= 1
-        else:
-            index += 1
-    in_place = [my_list[pivot]]
-    left = my_list[:pivot]
-    right = my_list[pivot+1:]
-    return quick_sort(left) + in_place + quick_sort(right)
+def quick_sort(my_list, p, r):
+    if p < r:
+        q = partition(my_list, p, r)
+        quick_sort(my_list, p, q-1)
+        quick_sort(my_list, q+1, r)
+    return my_list
 
+def partition(my_list, p, r):
+    x = my_list[r]
+    i = p - 1
+    for j in range(p, r):
+        if my_list[j] <= x:
+            i += 1
+            my_list[i], my_list[j] = my_list[j], my_list[i]
+    my_list[i+1], my_list[r] = my_list[r], my_list[i+1]
+    return i + 1
 
 # ---------------------------------
 
@@ -151,7 +127,7 @@ def heapify(my_list):
     return my_list
 
 def sift_down(my_list, parent, left, right):
-    
+
     if (my_list[left] > my_list[parent] and
             (right == None or my_list[left] > my_list[right])):
 
@@ -179,7 +155,7 @@ def sift_down(my_list, parent, left, right):
 
 # Testing #
 my_nums = [1,99,7,64,-21,400,0,169,17,1,100,999]
-my_randoms = random.sample(range(999999), 10000)
+my_randoms = random.sample(range(99999), 10000)
 
 type_sort = input("Which type of sort? "
                     "1 = bubble, "
@@ -199,10 +175,10 @@ elif type_sort == 2:
     sort_my_randoms = insertion_sort(my_randoms)
 elif type_sort == 3:
     type_sort = "merge sort"
-    sort_my_randoms = merge_sort(my_randoms)
+    sort_my_randoms = merge_sort(my_randoms, 0, len(my_randoms)-1)
 elif type_sort == 4:
     type_sort = "quick sort"
-    sort_my_randoms = quick_sort(my_randoms)
+    sort_my_randoms = quick_sort(my_randoms, 0, len(my_randoms)-1)
 elif type_sort == 5:
     type_sort = "heap sort"
     sort_my_randoms = heap_sort(my_randoms)
